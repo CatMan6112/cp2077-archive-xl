@@ -15,19 +15,18 @@ struct __declspec(align(0x10)) CompiledNodeInstanceSetupInfo
     uint64_t globalNodeID;             // 58
     uint64_t proxyNodeID;              // 60
     ResourcePath unk68;                // 68
-    float secondaryRefPointDistance;   // 70
-    float streamingDistance;           // 74
-    uint16_t nodeIndex;                // 78
-    uint16_t unk7A;                    // 7A
-    uint16_t unk7C;                    // 7C
-    uint16_t unk7E;                    // 7E
-    uint64_t unk80;                    // 80
+    uint64_t nodeIndex : 19;           // 70
+    uint64_t unk70 : 45;               // 70
+    float secondaryRefPointDistance;   // 78
+    float streamingDistance;           // 7C
+    uint32_t unk80;                    // 80
+    uint32_t unk84;                    // 84
     uint64_t unk88;                    // 88
 };
 RED4EXT_ASSERT_SIZE(CompiledNodeInstanceSetupInfo, 0x90);
 RED4EXT_ASSERT_OFFSET(CompiledNodeInstanceSetupInfo, node, 0x50);
 RED4EXT_ASSERT_OFFSET(CompiledNodeInstanceSetupInfo, globalNodeID, 0x58);
-RED4EXT_ASSERT_OFFSET(CompiledNodeInstanceSetupInfo, nodeIndex, 0x78);
+RED4EXT_ASSERT_OFFSET(CompiledNodeInstanceSetupInfo, secondaryRefPointDistance, 0x78);
 
 struct CompiledNodeInstanceSetupInfoBuffer : DataBuffer
 {
@@ -57,11 +56,13 @@ RED4EXT_ASSERT_SIZE(CompiledNodeInstanceSetupInfoBuffer, 0x28);
 struct StreamingSectorNodeBuffer
 {
     CompiledNodeInstanceSetupInfoBuffer nodeSetups; // 00
-    DynArray<Handle<worldNode>> nodes;              // 28
-    DynArray<NodeRef> nodeRefs;                     // 38
+    uint32_t version;                               // 28
+    DynArray<Handle<worldNode>> nodes;              // 30
+    DynArray<NodeRef> nodeRefs;                     // 40
 };
-RED4EXT_ASSERT_OFFSET(StreamingSectorNodeBuffer, nodes, 0x28);
-RED4EXT_ASSERT_OFFSET(StreamingSectorNodeBuffer, nodeRefs, 0x38);
+RED4EXT_ASSERT_OFFSET(StreamingSectorNodeBuffer, nodes, 0x30);
+RED4EXT_ASSERT_OFFSET(StreamingSectorNodeBuffer, nodeRefs, 0x40);
+RED4EXT_ASSERT_SIZE(StreamingSectorNodeBuffer, 0x50);
 
 struct CollisionActor
 {
