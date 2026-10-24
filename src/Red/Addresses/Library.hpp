@@ -188,5 +188,5 @@ constexpr uint32_t TPPRepresentationComponent_OnItemUnequipped = 1933319146;
 constexpr uint32_t TPPRepresentationComponent_RegisterAffectedItem = 3037343626;
 constexpr uint32_t TPPRepresentationComponent_IsAffectedSlot = 678894266;
 
-constexpr uint32_t TweakDB_Load = 3602585178; // game::data::TweakDB::LoadOptimized
+constexpr uint32_t TweakDB_Load = 63182599; // game::data::TweakDB::LoadOptimized
 }
