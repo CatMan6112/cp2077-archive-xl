@@ -741,7 +741,7 @@ void App::ResourcePatchExtension::OnEntityPackageLoad(Red::JobQueue& aJobQueue, 
                                                       Red::EntityBuilderJobParams* aParams)
 {
     aJobQueue.Dispatch([entityBuilderWeak = aParams->entityBuilderWeak](const Red::JobGroup& aJobGroup) {
-        auto entityBuilder = entityBuilderWeak.Lock();
+        Red::EntityBuilderRef entityBuilder(entityBuilderWeak);
 
         if (!entityBuilder)
             return;
@@ -779,7 +779,7 @@ void App::ResourcePatchExtension::OnEntityPackageLoad(Red::JobQueue& aJobQueue, 
     });
 
     aJobQueue.Dispatch([entityBuilderWeak = aParams->entityBuilderWeak](const Red::JobGroup& aJobGroup) {
-        auto entityBuilder = entityBuilderWeak.Lock();
+        Red::EntityBuilderRef entityBuilder(entityBuilderWeak);
 
         if (!entityBuilder)
             return;
