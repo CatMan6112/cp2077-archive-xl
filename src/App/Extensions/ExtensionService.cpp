@@ -70,15 +70,8 @@ void App::ExtensionService::Configure()
 {
     std::unique_lock _(m_reloadMutex);
 
-    if (!IsHooked<Raw::ResourceLoader::OnUpdate>())
-    {
-        HookAfter<Raw::ResourceLoader::OnUpdate>([&]() {
-            std::unique_lock _(m_reloadMutex);
-
-            m_loader->Configure();
-            m_loader->Reload();
-
-            Unhook<Raw::ResourceLoader::OnUpdate>();
-        });
-    }
+    // The ResourceLoader_OnUpdate id is missing on patch 2.5 and an unresolved id terminates the game,
+    // so the reload runs right away instead of on the next loader update.
+    m_loader->Configure();
+    m_loader->Reload();
 }

@@ -721,6 +721,9 @@ App::DynamicAppearanceController::CustomizationData App::DynamicAppearanceContro
 
     Raw::CharacterCustomizationHelper::GetHairColor(data.hairColor, system->ref, data.isMale);
 
+    // The nails color fallback reads the customization state, whose layout changed in patch 2.5
+    // and is not mapped yet, so it is disabled for now.
+#if 0
     if (!data.nailsColor)
     {
         auto state = Raw::CharacterCustomizationSystem::State::Ref(system);
@@ -745,6 +748,7 @@ App::DynamicAppearanceController::CustomizationData App::DynamicAppearanceContro
             }
         }
     }
+#endif
 
     return data;
 }

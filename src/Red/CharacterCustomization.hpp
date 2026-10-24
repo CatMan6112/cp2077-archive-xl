@@ -98,8 +98,10 @@ namespace Raw::CharacterCustomizationSystem
 {
 using MaleResource = Core::OffsetPtr<0x48, Red::SharedPtr<Red::ResourceToken<Red::gameuiCharacterCustomizationInfoResource>>>;
 using FemaleResource = Core::OffsetPtr<0x58, Red::SharedPtr<Red::ResourceToken<Red::gameuiCharacterCustomizationInfoResource>>>;
-using StateLock = Core::OffsetPtr<0x70, Red::SharedSpinLock>;
-using State = Core::OffsetPtr<0x78, Red::Handle<Red::gameuiCharacterCustomizationState>>;
+using StateLock = Core::OffsetPtr<0x98, Red::SharedSpinLock>;
+// Patch 2.5 no longer keeps the state handle at 0x78, and the group arrays moved into the system
+// (0xB8 head, 0x128 body, 0xE0 arms) with a new element type. Not mapped yet.
+// using State = Core::OffsetPtr<0x78, Red::Handle<Red::gameuiCharacterCustomizationState>>;
 
 constexpr auto Initialize = Core::RawFunc<
     /* addr = */ Red::AddressLib::CharacterCustomizationSystem_Initialize,

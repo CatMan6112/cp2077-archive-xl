@@ -1,5 +1,12 @@
 #pragma once
 
+namespace Red
+{
+// Patch 2.5 renumbered the archive scopes (1 content, 2 ep1, 4 and 5 patch, 6 mod),
+// but the SDK enum still has Mod = 4.
+constexpr auto ModArchiveScope = static_cast<ArchiveScope>(6);
+}
+
 namespace Raw::ResourceDepot
 {
 constexpr auto InitializeArchives = Core::RawFunc<
@@ -8,11 +15,12 @@ constexpr auto InitializeArchives = Core::RawFunc<
 
 constexpr auto LoadArchives = Core::RawFunc<
     /* addr = */ Red::AddressLib::ResourceDepot_LoadArchives,
-    /* type = */ void (*)(Red::ResourceDepot* aDepot,
+    /* type = */ bool (*)(Red::ResourceDepot* aDepot,
                           Red::ArchiveGroup& aGroup,
                           const Red::DynArray<Red::CString>& aArchivePaths,
                           Red::DynArray<Red::ResourcePath>& aLoadedResourcePaths,
-                          bool aMemoryResident)>{};
+                          uint32_t aMemoryResident,
+                          uint8_t aErrorCategory)>{};
 
 constexpr auto RequestResource = Core::RawFunc<
     /* addr = */ Red::AddressLib::ResourceDepot_RequestResource,
