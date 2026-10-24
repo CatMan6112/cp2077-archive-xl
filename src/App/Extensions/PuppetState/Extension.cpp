@@ -1,5 +1,6 @@
 #include "Extension.hpp"
 #include "Red/Entity.hpp"
+#include "Red/TransactionSystem.hpp"
 #include "Red/TweakDB.hpp"
 
 namespace
@@ -93,7 +94,7 @@ void App::PuppetStateExtension::OnAttachPuppet(Red::gameuiCharacterCustomization
     s_handlers.insert({owner, handler});
 
     auto transactionSystem = Red::GetGameSystem<Red::ITransactionSystem>();
-    transactionSystem->RegisterSlotListener(owner, handler);
+    Raw::TransactionSystem::RegisterSlotListener(transactionSystem, owner, handler);
 }
 
 void App::PuppetStateExtension::OnDetachPuppet(Red::gameuiCharacterCustomizationHairstyleController* aComponent, uintptr_t)
@@ -114,7 +115,7 @@ void App::PuppetStateExtension::OnDetachPuppet(Red::gameuiCharacterCustomization
     s_handlers.erase(owner);
 
     auto transactionSystem = Red::GetGameSystem<Red::ITransactionSystem>();
-    transactionSystem->UnregisterSlotListener(owner, handler);
+    Raw::TransactionSystem::UnregisterSlotListener(transactionSystem, owner, handler);
 }
 
 App::PuppetArmsState App::PuppetStateExtension::GetArmsState(const Red::WeakHandle<Red::GameObject>& aPuppet)

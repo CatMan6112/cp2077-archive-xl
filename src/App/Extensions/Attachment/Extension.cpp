@@ -1,6 +1,7 @@
 #include "Extension.hpp"
 #include "App/Extensions/Garment/Extension.hpp"
 #include "Red/ItemObject.hpp"
+#include "Red/TransactionSystem.hpp"
 #include "Red/TweakDB.hpp"
 
 namespace
@@ -227,7 +228,7 @@ void App::AttachmentExtension::OnCheckFeetState(Red::game::ui::CharacterCustomiz
     if (aLiftedState != Red::CharacterBodyPartState::Visible)
     {
         auto transactionSystem = Red::GetGameSystem<Red::ITransactionSystem>();
-        if (transactionSystem->IsSlotSpawning(aComponent->owner, FeetSlot))
+        if (Raw::TransactionSystem::IsSlotSpawning(transactionSystem, aComponent->owner, FeetSlot))
         {
             aLiftedState = Red::CharacterBodyPartState::Visible;
             aFlatState = Red::CharacterBodyPartState::Hidden;
@@ -313,7 +314,7 @@ bool App::AttachmentExtension::IsVisualTagActive(Red::ITransactionSystem* aTrans
             Raw::ItemObject::GetAppearanceName(slotData->itemObject, itemAppearance);
 
             return itemAppearance && itemAppearance != EmptyAppearanceName &&
-                   aTransactionSystem->MatchVisualTag(slotData->itemObject, aVisualTag, false);
+                   Raw::TransactionSystem::MatchVisualTag(aTransactionSystem, slotData->itemObject, aVisualTag, false);
         }
 
 //         if (slotData->spawningItemID && slotData->spawningItemID.tdbid != aEquippedItemID)

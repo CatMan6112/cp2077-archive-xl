@@ -4,6 +4,7 @@
 #include "App/Extensions/PuppetState/Extension.hpp"
 #include "Core/Facades/Log.hpp"
 #include "Red/ItemObject.hpp"
+#include "Red/TransactionSystem.hpp"
 #include "Red/TweakDB.hpp"
 
 namespace
@@ -319,23 +320,23 @@ bool App::PuppetStateHandler::IsTppHeadSlot(Red::TweakDBID aSlotID)
 
 bool App::PuppetStateHandler::HidesFootwear(const Red::Handle<Red::Entity>& aPuppet, const Red::ItemID& aItemID)
 {
-    return m_transactionSystem->MatchVisualTagByItemID(aItemID, aPuppet, HideFootwearTag);
+    return Raw::TransactionSystem::MatchVisualTagByItemID(m_transactionSystem, aItemID, aPuppet, HideFootwearTag);
 }
 
 bool App::PuppetStateHandler::RollsUpSleeves(const Red::Handle<Red::Entity>& aPuppet, const Red::ItemID& aItemID)
 {
-    return m_transactionSystem->MatchVisualTagByItemID(aItemID, aPuppet, HideInnerSleevesTag);
+    return Raw::TransactionSystem::MatchVisualTagByItemID(m_transactionSystem, aItemID, aPuppet, HideInnerSleevesTag);
 }
 
 bool App::PuppetStateHandler::IsHighHeels(const Red::Handle<Red::ItemObject>& aItemObject)
 {
-    return m_transactionSystem->MatchVisualTag(aItemObject, HighHeelsTag, false);
+    return Raw::TransactionSystem::MatchVisualTag(m_transactionSystem, aItemObject, HighHeelsTag, false);
 }
 
 bool App::PuppetStateHandler::IsFlatSole(const Red::Handle<Red::ItemObject>& aItemObject)
 {
-    return m_transactionSystem->MatchVisualTag(aItemObject, FlatShoesTag, false)
-        || m_transactionSystem->MatchVisualTag(aItemObject, ForceFlatFeetTag, false);
+    return Raw::TransactionSystem::MatchVisualTag(m_transactionSystem, aItemObject, FlatShoesTag, false)
+        || Raw::TransactionSystem::MatchVisualTag(m_transactionSystem, aItemObject, ForceFlatFeetTag, false);
 }
 
 App::PuppetStateHandler::SlotState App::PuppetStateHandler::GetItemInSlot(const Red::Handle<Red::Entity>& aPuppet,
